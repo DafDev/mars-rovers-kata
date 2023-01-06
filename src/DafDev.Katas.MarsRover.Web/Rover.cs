@@ -39,6 +39,8 @@ public class Rover
         {
             case 'N': Position.Y--; break;
             case 'E': Position.X--; break;
+            case 'S': Position.Y++; break;
+            case 'W': Position.X++; break;
             default: break;
         }
     }
