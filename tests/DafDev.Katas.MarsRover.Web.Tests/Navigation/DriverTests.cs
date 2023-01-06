@@ -46,4 +46,15 @@ public class DriverTests
         //Assert
         Assert.Equal(expectedDirection, result);
     }
+
+    [Theory]
+    [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
+    public void TurnLefttMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
+    {
+        //Act
+        char result = _target.TurnRight(startingDirection);
+
+        //Assert
+        Assert.Equal(expectedDirection, result);
+    }
 }
