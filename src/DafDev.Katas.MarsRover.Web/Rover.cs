@@ -1,13 +1,20 @@
-using System.Drawing;
+using DafDev.Katas.MarsRover.Web.Navigation;
 
 namespace DafDev.Katas.MarsRover.Web;
 
 public class Rover
 {
-    public Point StartingPoint { get; set; }
+    public Coordinates StartingPoint { get; set; }
     public char Direction { get; set; }
 
-    public void GetCommands(char[] commands){ }
+    public void GetCommands(char[] commands)
+    {
+        foreach (var command in commands)
+        {
+            if (command == 'f')
+                StartingPoint.Y++;
+        }
+    }
 
     public Rover Init() => new()
     {
