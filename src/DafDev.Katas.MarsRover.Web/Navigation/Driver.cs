@@ -26,6 +26,8 @@ public class Driver : IDriver
             return 'E';
         if (startingDirection == 'E')
             return 'S';
+        if (startingDirection == 'S')
+            return 'W';
 
         return startingDirection;
     }
