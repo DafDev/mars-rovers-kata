@@ -1,3 +1,5 @@
+using DafDev.Katas.MarsRover.Web.Tests.Data;
+
 namespace DafDev.Katas.MarsRover.Web.Navigation;
 public class DriverTests
 {
@@ -9,7 +11,7 @@ public class DriverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetForwardCommandData))]
+    [MemberData(nameof(RoverTestData.GetForwardCommandData), MemberType = typeof(RoverTestData))]
     public void MoveForwardMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Act
@@ -22,7 +24,7 @@ public class DriverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetBackwardCommandData))]
+    [MemberData(nameof(RoverTestData.GetBackwardCommandData), MemberType = typeof(RoverTestData))]
     public void MoveBackwardMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Act
@@ -45,21 +47,5 @@ public class DriverTests
 
         //Assert
         Assert.Equal(expectedDirection, result);
-    }
-
-    public static IEnumerable<object[]> GetBackwardCommandData()
-    {
-        yield return new object[] { 'N', 0, -1 };
-        yield return new object[] { 'E', -1, 0 };
-        yield return new object[] { 'S', 0, 1 };
-        yield return new object[] { 'W', 1, 0 };
-    }
-
-    public static IEnumerable<object[]> GetForwardCommandData()
-    {
-        yield return new object[] { 'N', 0, 1 };
-        yield return new object[] { 'E', 1, 0 };
-        yield return new object[] { 'S', 0, -1 };
-        yield return new object[] { 'W', -1, 0 };
     }
 }
