@@ -28,7 +28,7 @@ public class RoverTests
     }
 
     [Fact]
-    public void ForwardCommandMovesRoverForwardBy1Unit()
+    public void ForwardCommandMovesRoverForwardBy1UnitWithNorthStartingPosition()
     {
         var rover = _target.Init();
         
@@ -39,6 +39,21 @@ public class RoverTests
         Assert.Equal('N', rover.Direction);
         Assert.Equal(0, rover.StartingPoint.X);
         Assert.Equal(1, rover.StartingPoint.Y);
+
+    }
+
+    [Fact]
+    public void ForwardCommandMovesRoverForwardBy1UnitWithEastStartingPosition()
+    {
+        var rover = _target.Init();
+        rover.Direction = 'E';
+        var commands = new[] { 'f' };
+
+        rover.GetCommands(commands);
+
+        Assert.Equal('E', rover.Direction);
+        Assert.Equal(1, rover.StartingPoint.X);
+        Assert.Equal(0, rover.StartingPoint.Y);
 
     }
 }
