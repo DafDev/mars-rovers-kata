@@ -4,7 +4,7 @@ namespace DafDev.Katas.MarsRover.Web;
 
 public class Rover
 {
-    public Coordinates StartingPoint { get; set; }
+    public Coordinates Position { get; set; }
     public char Direction { get; set; }
 
     public void GetCommands(char[] commands)
@@ -24,17 +24,17 @@ public class Rover
     {
         switch (direction)
         {
-            case 'N': StartingPoint.Y++; break;
-            case 'E': StartingPoint.X++; break;
-            case 'S': StartingPoint.Y--; break;
-            case 'W': StartingPoint.X--; break;
+            case 'N': Position.Y++; break;
+            case 'E': Position.X++; break;
+            case 'S': Position.Y--; break;
+            case 'W': Position.X--; break;
             default: break;
         }
     }
 
     public Rover Init() => new()
     {
-        StartingPoint= new Coordinates(0, 0),
+        Position= new Coordinates(0, 0),
         Direction = 'N',
     };
 }

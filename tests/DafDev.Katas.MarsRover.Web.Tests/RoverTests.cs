@@ -15,8 +15,8 @@ public class RoverTests
     public void InitFuntion_ReturnsDefaultStartingPointAndDirection()
     {
         var result = _target.Init();
-        Assert.Equal(0, result.StartingPoint.X);
-        Assert.Equal(0, result.StartingPoint.Y);
+        Assert.Equal(0, result.Position.X);
+        Assert.Equal(0, result.Position.Y);
         Assert.Equal('N', result.Direction);
     }
 
@@ -38,8 +38,8 @@ public class RoverTests
         rover.GetCommands(commands);
 
         Assert.Equal(direction, rover.Direction);
-        Assert.Equal(expectedX, rover.StartingPoint.X);
-        Assert.Equal(expectedY, rover.StartingPoint.Y);
+        Assert.Equal(expectedX, rover.Position.X);
+        Assert.Equal(expectedY, rover.Position.Y);
 
     }
 
