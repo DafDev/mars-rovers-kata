@@ -1,20 +1,24 @@
-using System.Drawing;
+using DafDev.Katas.MarsRover.Web.Navigation;
 
 namespace DafDev.Katas.MarsRover.Web;
 
 public class RoverTests
 {
     private readonly Rover _target;
+    private readonly Mock<IDriver> _driverMock = new();
 
     public RoverTests()
     {
-        _target = new Rover();
+        _target = new Rover(_driverMock.Object);
     }
 
     [Fact]
-    public void InitFuntion_ReturnsDefaultStartingPointAndDirection()
+    public void RoverAtInstanciation_ReturnsDefaultStartingPointAndDirection()
     {
-        var result = _target.Init();
+        //Arrange & Act
+        var result = new Rover(_driverMock.Object);
+
+        //Assert
         Assert.Equal(0, result.Position.X);
         Assert.Equal(0, result.Position.Y);
         Assert.Equal('N', result.Direction);
@@ -23,7 +27,9 @@ public class RoverTests
     [Fact]
     public void ReceivesCommands()
     {
+        //Arrange
         var commands = Array.Empty<char>();
+        //Act
         _target.GetCommands(commands);
     }
 
@@ -31,12 +37,20 @@ public class RoverTests
     [MemberData(nameof(GetForwardCommandData))]
     public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
-        var rover = _target.Init();
-        rover.Direction = direction;
+        //Arrange
+        _driverMock
+            .Setup(d => d.MoveForward(It.IsAny<Coordinates>(), It.IsAny<char>()))
+            .Returns(new Coordinates(expectedX, expectedY));
+        var rover = new Rover(_driverMock.Object)
+        {
+            Direction = direction
+        };
         var commands = new[] { 'f' };
 
+        //Act
         rover.GetCommands(commands);
 
+        //Assert
         Assert.Equal(direction, rover.Direction);
         Assert.Equal(expectedX, rover.Position.X);
         Assert.Equal(expectedY, rover.Position.Y);
@@ -47,12 +61,20 @@ public class RoverTests
     [MemberData(nameof(GetBackwardCommandData))]
     public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
-        var rover = _target.Init();
-        rover.Direction = direction;
+        //Arrange
+        _driverMock
+            .Setup(d => d.MoveBackward(It.IsAny<Coordinates>(), It.IsAny<char>()))
+            .Returns(new Coordinates(expectedX, expectedY));
+        var rover = new Rover(_driverMock.Object)
+        {
+            Direction = direction
+        };
         var commands = new[] { 'b' };
 
+        //Act
         rover.GetCommands(commands);
 
+        //Assert
         Assert.Equal(direction, rover.Direction);
         Assert.Equal(expectedX, rover.Position.X);
         Assert.Equal(expectedY, rover.Position.Y);
