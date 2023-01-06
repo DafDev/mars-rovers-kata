@@ -28,6 +28,7 @@ public class RoverTestData
         yield return new object[] { 'N', 'E' };
         yield return new object[] { 'E', 'S' };
         yield return new object[] { 'S', 'W' };
+        yield return new object[] { 'W', 'N' };
     }
 
 }

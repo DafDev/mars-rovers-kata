@@ -37,9 +37,7 @@ public class DriverTests
     }
 
     [Theory]
-    [InlineData('N','E')]
-    [InlineData('E','S')]
-    [InlineData('S','W')]
+    [MemberData(nameof(RoverTestData.GetTurnRightCommandData), MemberType = typeof(RoverTestData))]
     public void TurnRightMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
     {
         //Act
