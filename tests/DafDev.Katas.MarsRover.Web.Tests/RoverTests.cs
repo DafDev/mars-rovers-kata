@@ -43,6 +43,24 @@ public class RoverTests
 
     }
 
+    [Theory]
+    [InlineData('N',0,-1)]
+    public void BackawarCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    {
+        var rover = _target.Init();
+        rover.Direction = direction;
+        var commands = new[] { 'b' };
+
+        rover.GetCommands(commands);
+
+        Assert.Equal(direction, rover.Direction);
+        Assert.Equal(expectedX, rover.Position.X);
+        Assert.Equal(expectedY, rover.Position.Y);
+
+    }
+
+
+
     public static IEnumerable<object[]> GetCommandsData()
     {
         yield return new object[] { 'N', 0, 1 };
