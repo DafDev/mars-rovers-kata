@@ -6,6 +6,13 @@ public class Rover
 {
     public Coordinates Position { get; set; }
     public char Direction { get; set; }
+    private readonly IDriver _driver;
+
+    public Rover(IDriver driver)
+    {
+        _driver = driver;
+        Init();
+    }
 
     public void GetCommands(char[] commands)
     {
@@ -45,9 +52,9 @@ public class Rover
         }
     }
 
-    public Rover Init() => new()
+    public void Init() 
     {
-        Position= new Coordinates(0, 0),
-        Direction = 'N',
-    };
+        Position = new Coordinates(0, 0);
+        Direction = 'N';
+    }
 }
