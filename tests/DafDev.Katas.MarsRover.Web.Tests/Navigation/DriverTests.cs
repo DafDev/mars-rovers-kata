@@ -10,7 +10,7 @@ public class DriverTests
 
     [Theory]
     [MemberData(nameof(GetForwardCommandData))]
-    public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    public void MoveForwardMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Act
         var result = _target.MoveForward(new(0, 0), direction);
@@ -23,7 +23,7 @@ public class DriverTests
 
     [Theory]
     [MemberData(nameof(GetBackwardCommandData))]
-    public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    public void MoveBackwardMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Act
         var result = _target.MoveBackward(new(0, 0), direction);
@@ -32,6 +32,17 @@ public class DriverTests
         Assert.Equal(expectedX, result.X);
         Assert.Equal(expectedY, result.Y);
 
+    }
+
+    [Theory]
+    [InlineData('N','E')]
+    public void TurnRightMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
+    {
+        //Act
+        char result = _target.TurnRight(startingDirection);
+
+        //Assert
+        Assert.Equal(expectedDirection, result);
     }
 
     public static IEnumerable<object[]> GetBackwardCommandData()

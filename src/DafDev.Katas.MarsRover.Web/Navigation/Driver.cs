@@ -19,4 +19,9 @@ public class Driver : IDriver
         'W' => new(--coordinates.X, coordinates.Y),
         _ => coordinates,
     };
+
+    public char TurnRight(char startingDirection)
+    {
+        return ' ';
+    }
 }
