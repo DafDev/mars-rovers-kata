@@ -15,6 +15,7 @@ public class Rover
             {
                 case 'f': MoveForward(Direction); break;
                 case 'b' when Direction == 'N': Position.Y--;break;
+                case 'b' when Direction == 'E': Position.X--;break;
                 default:
                     break;
             }
