@@ -8,7 +8,7 @@ public class RoverTests
 
     public RoverTests()
     {
-        _target= new Rover();
+        _target = new Rover();
     }
 
     [Fact]
@@ -27,33 +27,25 @@ public class RoverTests
         _target.GetCommands(commands);
     }
 
-    [Fact]
-    public void ForwardCommandMovesRoverForwardBy1UnitWithNorthStartingPosition()
+    [Theory]
+    [MemberData(nameof(GetCommandsData))]
+    public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         var rover = _target.Init();
-        
-        var commands= new[] {'f'};
-
-        rover.GetCommands(commands);
-
-        Assert.Equal('N', rover.Direction);
-        Assert.Equal(0, rover.StartingPoint.X);
-        Assert.Equal(1, rover.StartingPoint.Y);
-
-    }
-
-    [Fact]
-    public void ForwardCommandMovesRoverForwardBy1UnitWithEastStartingPosition()
-    {
-        var rover = _target.Init();
-        rover.Direction = 'E';
+        rover.Direction = direction;
         var commands = new[] { 'f' };
 
         rover.GetCommands(commands);
 
-        Assert.Equal('E', rover.Direction);
-        Assert.Equal(1, rover.StartingPoint.X);
-        Assert.Equal(0, rover.StartingPoint.Y);
+        Assert.Equal(direction, rover.Direction);
+        Assert.Equal(expectedX, rover.StartingPoint.X);
+        Assert.Equal(expectedY, rover.StartingPoint.Y);
 
+    }
+
+    public static IEnumerable<object[]> GetCommandsData()
+    {
+        yield return new object[] { 'N', 0, 1 };
+        yield return new object[] { 'E', 1, 0 };
     }
 }
