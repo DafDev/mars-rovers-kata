@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace DafDev.Katas.MarsRover.Web;
 
 public class RoverTests
@@ -13,8 +15,14 @@ public class RoverTests
     public void ReturnsStartingPointAndDirection()
     {
         var result = _target.Init();
-        Assert.Equal(0, result.X);
-        Assert.Equal(0, result.Y);
+        Assert.Equal(new Point(0,0), result.StartingPoint);
         Assert.Equal('N', result.Direction);
+    }
+
+    [Fact]
+    public void ReceivesCommands()
+    {
+        var commands = Array.Empty<char>();
+        _target.GetCommands(commands);
     }
 }
