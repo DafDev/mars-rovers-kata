@@ -25,4 +25,18 @@ public class RoverTests
         var commands = Array.Empty<char>();
         _target.GetCommands(commands);
     }
+
+    [Fact]
+    public void ForwardCommandMovesRoverForwardBy1Unit()
+    {
+        var rover = _target.Init();
+        
+        var commands= new[] {'f'};
+
+        rover.GetCommands(commands);
+
+        Assert.Equal('N', rover.Direction);
+        Assert.Equal(new Point(0, 1), rover.StartingPoint);
+
+    }
 }
