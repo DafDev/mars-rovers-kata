@@ -26,13 +26,15 @@ public class Rover
         {
             case 'N': StartingPoint.Y++; break;
             case 'E': StartingPoint.X++; break;
+            case 'S': StartingPoint.Y--; break;
+            case 'W': StartingPoint.X--; break;
             default: break;
         }
     }
 
     public Rover Init() => new()
     {
-        StartingPoint= new Point(0, 0),
+        StartingPoint= new Coordinates(0, 0),
         Direction = 'N',
     };
 }
