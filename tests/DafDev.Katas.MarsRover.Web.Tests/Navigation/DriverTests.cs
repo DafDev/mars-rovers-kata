@@ -37,6 +37,7 @@ public class DriverTests
     [Theory]
     [InlineData('N','E')]
     [InlineData('E','S')]
+    [InlineData('S','W')]
     public void TurnRightMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
     {
         //Act
