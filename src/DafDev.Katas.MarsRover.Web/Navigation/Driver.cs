@@ -2,20 +2,21 @@ namespace DafDev.Katas.MarsRover.Web.Navigation;
 
 public class Driver : IDriver
 {
-    public Coordinates MoveBackward(Coordinates coordinates, char direction)
+    public Coordinates MoveBackward(Coordinates coordinates, char direction) => direction switch
     {
-        switch (direction)
-        {
-            case 'N': return new(coordinates.X, --coordinates.Y);
-            case 'E': return new(--coordinates.X, coordinates.Y);
-            case 'S': return new(coordinates.X, ++coordinates.Y); 
-            case 'W': return new(++coordinates.X, coordinates.Y);
-            default: return coordinates;
-        }
-    }
+        'N' => new(coordinates.X, --coordinates.Y),
+        'E' => new(--coordinates.X, coordinates.Y),
+        'S' => new(coordinates.X, ++coordinates.Y),
+        'W' => new(++coordinates.X, coordinates.Y),
+        _ => coordinates,
+    };
 
-    public Coordinates MoveForward(Coordinates coordinates, char direction)
+    public Coordinates MoveForward(Coordinates coordinates, char direction) => direction switch
     {
-        throw new NotImplementedException();
-    }
+        'N' => new(coordinates.X, ++coordinates.Y),
+        'E' => new(++coordinates.X, coordinates.Y),
+        'S' => new(coordinates.X, --coordinates.Y),
+        'W' => new(--coordinates.X, coordinates.Y),
+        _ => coordinates,
+    };
 }

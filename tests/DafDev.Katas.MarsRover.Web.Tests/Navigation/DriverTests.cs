@@ -9,6 +9,19 @@ public class DriverTests
     }
 
     [Theory]
+    [MemberData(nameof(GetForwardCommandData))]
+    public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    {
+        //Act
+        var result = _target.MoveForward(new(0, 0), direction);
+
+        //Assert
+        Assert.Equal(expectedX, result.X);
+        Assert.Equal(expectedY, result.Y);
+
+    }
+
+    [Theory]
     [MemberData(nameof(GetBackwardCommandData))]
     public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
@@ -27,5 +40,13 @@ public class DriverTests
         yield return new object[] { 'E', -1, 0 };
         yield return new object[] { 'S', 0, 1 };
         yield return new object[] { 'W', 1, 0 };
+    }
+
+    public static IEnumerable<object[]> GetForwardCommandData()
+    {
+        yield return new object[] { 'N', 0, 1 };
+        yield return new object[] { 'E', 1, 0 };
+        yield return new object[] { 'S', 0, -1 };
+        yield return new object[] { 'W', -1, 0 };
     }
 }
