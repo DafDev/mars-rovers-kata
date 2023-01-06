@@ -9,7 +9,7 @@ public class Rover
 
     public void GetCommands(char[] commands)
     {
-        throw new NotImplementedException();
+
     }
 
     public Rover Init() => new()
