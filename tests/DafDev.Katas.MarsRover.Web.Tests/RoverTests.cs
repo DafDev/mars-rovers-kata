@@ -38,6 +38,9 @@ public class RoverTests
     public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Arrange
+        _driverMock
+            .Setup(d => d.MoveForward(It.IsAny<Coordinates>(), It.IsAny<char>()))
+            .Returns(new Coordinates(expectedX, expectedY));
         var rover = new Rover(_driverMock.Object)
         {
             Direction = direction
