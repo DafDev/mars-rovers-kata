@@ -4,6 +4,6 @@ public class Rover
 {
     public (int X,int Y, char Direction) Init()
     {
-        throw new NotImplementedException();
+        return (0, 0, 'N');
     }
 }
