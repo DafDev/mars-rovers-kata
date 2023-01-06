@@ -14,6 +14,7 @@ public class Rover
             switch (command)
             {
                 case 'f': MoveForward(Direction); break;
+                case 'b' when Direction == 'N': Position.Y--;break;
                 default:
                     break;
             }
