@@ -59,7 +59,9 @@ public class RoverTests
     public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Arrange
-        _driverMock;
+        _driverMock
+            .Setup(d => d.MoveBackward(It.IsAny<Coordinates>(), It.IsAny<char>()))
+            .Returns(new Coordinates(expectedX, expectedY));
         var rover = new Rover(_driverMock.Object)
         {
             Direction = direction
