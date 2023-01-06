@@ -28,7 +28,7 @@ public class RoverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetCommandsData))]
+    [MemberData(nameof(GetForwardCommandData))]
     public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         var rover = _target.Init();
@@ -43,11 +43,36 @@ public class RoverTests
 
     }
 
-    public static IEnumerable<object[]> GetCommandsData()
+    [Theory]
+    [MemberData(nameof(GetBackwardCommandData))]
+    public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    {
+        var rover = _target.Init();
+        rover.Direction = direction;
+        var commands = new[] { 'b' };
+
+        rover.GetCommands(commands);
+
+        Assert.Equal(direction, rover.Direction);
+        Assert.Equal(expectedX, rover.Position.X);
+        Assert.Equal(expectedY, rover.Position.Y);
+
+    }
+
+
+    public static IEnumerable<object[]> GetForwardCommandData()
     {
         yield return new object[] { 'N', 0, 1 };
         yield return new object[] { 'E', 1, 0 };
         yield return new object[] { 'S', 0, -1 };
         yield return new object[] { 'W', -1, 0 };
+    }
+
+    public static IEnumerable<object[]> GetBackwardCommandData()
+    {
+        yield return new object[] { 'N', 0, -1 };
+        yield return new object[] { 'E', -1, 0 };
+        yield return new object[] { 'S', 0, 1 };
+        yield return new object[] { 'W', 1, 0 };
     }
 }
