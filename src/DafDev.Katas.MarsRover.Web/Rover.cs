@@ -7,10 +7,7 @@ public class Rover
     public Point StartingPoint { get; set; }
     public char Direction { get; set; }
 
-    public void GetCommands(char[] commands)
-    {
-
-    }
+    public void GetCommands(char[] commands){ }
 
     public Rover Init() => new()
     {
