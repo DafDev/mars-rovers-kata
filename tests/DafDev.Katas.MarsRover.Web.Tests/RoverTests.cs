@@ -45,6 +45,7 @@ public class RoverTests
 
     [Theory]
     [InlineData('N',0,-1)]
+    [InlineData('E',-1,0)]
     public void BackawarCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         var rover = _target.Init();
