@@ -22,6 +22,6 @@ public class Driver : IDriver
 
     public char TurnRight(char startingDirection)
     {
-        return ' ';
+        return 'E';
     }
 }
