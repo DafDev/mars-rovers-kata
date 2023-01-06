@@ -11,8 +11,10 @@ public class Rover
     {
         foreach (var command in commands)
         {
-            if (command == 'f')
+            if (command == 'f' && Direction == 'N')
                 StartingPoint.Y++;
+            if (command == 'f' && Direction == 'E')
+                StartingPoint.X++;
         }
     }
 
