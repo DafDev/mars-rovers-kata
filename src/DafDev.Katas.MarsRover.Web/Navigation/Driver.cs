@@ -19,4 +19,22 @@ public class Driver : IDriver
         'W' => new(--coordinates.X, coordinates.Y),
         _ => coordinates,
     };
+
+    public char TurnLeft(char startingDirection) => startingDirection switch
+    {
+        'N' => 'W',
+        'W' => 'S',
+        'S' => 'E',
+        'E' => 'N',
+        _ => startingDirection
+    };
+
+    public char TurnRight(char startingDirection) => startingDirection switch
+    {
+        'N' => 'E',
+        'E' => 'S',
+        'S' => 'W',
+        'W' => 'N',
+        _ => startingDirection,
+    };
 }

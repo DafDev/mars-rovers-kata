@@ -1,4 +1,5 @@
 using DafDev.Katas.MarsRover.Web.Navigation;
+using DafDev.Katas.MarsRover.Web.Tests.Data;
 
 namespace DafDev.Katas.MarsRover.Web;
 
@@ -34,7 +35,7 @@ public class RoverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetForwardCommandData))]
+    [MemberData(nameof(RoverTestData.GetForwardCommandData), MemberType = typeof(RoverTestData))]
     public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Arrange
@@ -58,7 +59,7 @@ public class RoverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetBackwardCommandData))]
+    [MemberData(nameof(RoverTestData.GetBackwardCommandData), MemberType = typeof(RoverTestData))]
     public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Arrange
@@ -78,23 +79,51 @@ public class RoverTests
         Assert.Equal(direction, rover.Direction);
         Assert.Equal(expectedX, rover.Position.X);
         Assert.Equal(expectedY, rover.Position.Y);
-
     }
 
-
-    public static IEnumerable<object[]> GetForwardCommandData()
+    [Theory]
+    [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
+    public void TurnLeftMovesTheDirectionCounterClockwise(char startingDirection, char expectedDirection)
     {
-        yield return new object[] { 'N', 0, 1 };
-        yield return new object[] { 'E', 1, 0 };
-        yield return new object[] { 'S', 0, -1 };
-        yield return new object[] { 'W', -1, 0 };
+        //Arrange
+        _driverMock
+            .Setup(d => d.TurnLeft(startingDirection))
+            .Returns(expectedDirection);
+        var rover = new Rover(_driverMock.Object)
+        {
+            Direction = startingDirection
+        };
+        var commands = new[] { 'l' };
+
+        //Act
+        rover.GetCommands(commands);
+
+        //Assert
+        Assert.Equal(expectedDirection, rover.Direction);
+        Assert.Equal(0, rover.Position.X);
+        Assert.Equal(0, rover.Position.Y);
     }
 
-    public static IEnumerable<object[]> GetBackwardCommandData()
+    [Theory]
+    [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
+    public void TurnRightMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
     {
-        yield return new object[] { 'N', 0, -1 };
-        yield return new object[] { 'E', -1, 0 };
-        yield return new object[] { 'S', 0, 1 };
-        yield return new object[] { 'W', 1, 0 };
+        //Arrange
+        _driverMock
+            .Setup(d => d.TurnRight(startingDirection))
+            .Returns(expectedDirection);
+        var rover = new Rover(_driverMock.Object)
+        {
+            Direction = startingDirection
+        };
+        var commands = new[] { 'r' };
+
+        //Act
+        rover.GetCommands(commands);
+
+        //Assert
+        Assert.Equal(expectedDirection, rover.Direction);
+        Assert.Equal(0, rover.Position.X);
+        Assert.Equal(0, rover.Position.Y);
     }
 }

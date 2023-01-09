@@ -1,3 +1,5 @@
+using DafDev.Katas.MarsRover.Web.Tests.Data;
+
 namespace DafDev.Katas.MarsRover.Web.Navigation;
 public class DriverTests
 {
@@ -9,8 +11,8 @@ public class DriverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetForwardCommandData))]
-    public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    [MemberData(nameof(RoverTestData.GetForwardCommandData), MemberType = typeof(RoverTestData))]
+    public void MoveForwardMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Act
         var result = _target.MoveForward(new(0, 0), direction);
@@ -22,8 +24,8 @@ public class DriverTests
     }
 
     [Theory]
-    [MemberData(nameof(GetBackwardCommandData))]
-    public void BackwardCommandMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
+    [MemberData(nameof(RoverTestData.GetBackwardCommandData), MemberType = typeof(RoverTestData))]
+    public void MoveBackwardMovesRoverBackwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Act
         var result = _target.MoveBackward(new(0, 0), direction);
@@ -34,19 +36,25 @@ public class DriverTests
 
     }
 
-    public static IEnumerable<object[]> GetBackwardCommandData()
+    [Theory]
+    [MemberData(nameof(RoverTestData.GetTurnRightCommandData), MemberType = typeof(RoverTestData))]
+    public void TurnRightMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
     {
-        yield return new object[] { 'N', 0, -1 };
-        yield return new object[] { 'E', -1, 0 };
-        yield return new object[] { 'S', 0, 1 };
-        yield return new object[] { 'W', 1, 0 };
+        //Act
+        char result = _target.TurnRight(startingDirection);
+
+        //Assert
+        Assert.Equal(expectedDirection, result);
     }
 
-    public static IEnumerable<object[]> GetForwardCommandData()
+    [Theory]
+    [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
+    public void TurnLefttMovesTheDirectionCounterClockwise(char startingDirection, char expectedDirection)
     {
-        yield return new object[] { 'N', 0, 1 };
-        yield return new object[] { 'E', 1, 0 };
-        yield return new object[] { 'S', 0, -1 };
-        yield return new object[] { 'W', -1, 0 };
+        //Act
+        char result = _target.TurnLeft(startingDirection);
+
+        //Assert
+        Assert.Equal(expectedDirection, result);
     }
 }
