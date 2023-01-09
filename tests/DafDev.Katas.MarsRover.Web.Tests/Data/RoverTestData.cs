@@ -34,5 +34,6 @@ public class RoverTestData
     public static IEnumerable<object[]> GetTurnLeftCommandData()
     {
         yield return new object[] { 'N', 'W' };
+        yield return new object[] { 'W', 'S' };
     }
 }
