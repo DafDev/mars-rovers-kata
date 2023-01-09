@@ -69,12 +69,22 @@ public class DriverTests
     }
 
     [Fact]
-    public void MoveForwardWhenFacingNorthAndYXCordinatesMinValueReturnsYCordinatesMinValueAndXUnchanged()
+    public void MoveForwardWhenFacingNorthAndYCordinatesMinValueReturnsYCordinatesMaxValueAndXUnchanged()
     {
         //Arrange & Act
         var result = _target.MoveForward(new(int.MaxValue, int.MinValue), 'N');
 
         //Assert
         Assert.Equal(int.MaxValue, result.Y);
+    }
+
+    [Fact]
+    public void MoveForwardWhenEastNorthAndXCordinatesMinValueReturnsXCordinatesMaxValueAndYUnchanged()
+    {
+        //Arrange & Act
+        var result = _target.MoveForward(new(int.MinValue, int.MinValue), 'N');
+
+        //Assert
+        Assert.Equal(int.MaxValue, result.X);
     }
 }
