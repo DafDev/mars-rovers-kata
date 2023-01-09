@@ -20,15 +20,13 @@ public class Driver : IDriver
         _ => coordinates,
     };
 
-    public char TurnLeft(char startingDirection)
+    public char TurnLeft(char startingDirection) => startingDirection switch
     {
-        if (startingDirection == 'N')
-            return 'W';
-        if (startingDirection == 'W')
-            return 'S';
-
-        return ' ';
-    }
+        'N' => 'W',
+        'W' => 'S',
+        'S' => 'E',
+        _ => startingDirection
+    };
 
     public char TurnRight(char startingDirection) => startingDirection switch
     {
