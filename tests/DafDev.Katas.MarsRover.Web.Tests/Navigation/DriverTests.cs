@@ -49,7 +49,7 @@ public class DriverTests
 
     [Theory]
     [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
-    public void TurnLefttMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
+    public void TurnLefttMovesTheDirectionCounterClockwise(char startingDirection, char expectedDirection)
     {
         //Act
         char result = _target.TurnLeft(startingDirection);

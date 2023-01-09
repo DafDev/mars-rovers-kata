@@ -83,7 +83,7 @@ public class RoverTests
 
     [Theory]
     [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
-    public void TurnLefttMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
+    public void TurnLeftMovesTheDirectionCounterClockwise(char startingDirection, char expectedDirection)
     {
         //Arrange
         _driverMock
