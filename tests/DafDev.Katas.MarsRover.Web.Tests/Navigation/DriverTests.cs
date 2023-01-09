@@ -52,7 +52,7 @@ public class DriverTests
     public void TurnLefttMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
     {
         //Act
-        char result = _target.TurnRight(startingDirection);
+        char result = _target.TurnLeft(startingDirection);
 
         //Assert
         Assert.Equal(expectedDirection, result);
