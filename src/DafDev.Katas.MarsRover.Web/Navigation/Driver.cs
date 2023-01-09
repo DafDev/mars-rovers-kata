@@ -13,12 +13,12 @@ public class Driver : IDriver
 
     public Coordinates MoveForward(Coordinates coordinates, char direction)
     {
-        if (coordinates.Y == int.MaxValue && direction == 'S')
-            return new(coordinates.X, int.MinValue);
         return direction switch
         {
+            'N' when coordinates.Y == int.MinValue => new(coordinates.X, int.MaxValue),
             'N' => new(coordinates.X, ++coordinates.Y),
             'E' => new(++coordinates.X, coordinates.Y),
+            'S' when coordinates.Y == int.MaxValue => new(coordinates.X, int.MinValue),
             'S' => new(coordinates.X, --coordinates.Y),
             'W' => new(--coordinates.X, coordinates.Y),
             _ => coordinates,
