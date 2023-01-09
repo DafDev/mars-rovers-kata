@@ -11,14 +11,19 @@ public class Driver : IDriver
         _ => coordinates,
     };
 
-    public Coordinates MoveForward(Coordinates coordinates, char direction) => direction switch
+    public Coordinates MoveForward(Coordinates coordinates, char direction)
     {
-        'N' => new(coordinates.X, ++coordinates.Y),
-        'E' => new(++coordinates.X, coordinates.Y),
-        'S' => new(coordinates.X, --coordinates.Y),
-        'W' => new(--coordinates.X, coordinates.Y),
-        _ => coordinates,
-    };
+        return direction switch
+        {
+            'N' when coordinates.Y == int.MinValue => new(coordinates.X, int.MaxValue),
+            'N' => new(coordinates.X, ++coordinates.Y),
+            'E' => new(++coordinates.X, coordinates.Y),
+            'S' when coordinates.Y == int.MaxValue => new(coordinates.X, int.MinValue),
+            'S' => new(coordinates.X, --coordinates.Y),
+            'W' => new(--coordinates.X, coordinates.Y),
+            _ => coordinates,
+        };
+    }
 
     public char TurnLeft(char startingDirection) => startingDirection switch
     {

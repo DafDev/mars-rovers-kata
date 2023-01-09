@@ -39,8 +39,9 @@ public class RoverTests
     public void ForwardCommandMovesRoverForwardBy1UnitFromStartingPosition(char direction, int expectedX, int expectedY)
     {
         //Arrange
+        var  startingPosition = new Coordinates(0,0);
         _driverMock
-            .Setup(d => d.MoveForward(It.IsAny<Coordinates>(), It.IsAny<char>()))
+            .Setup(d => d.MoveForward(It.Is<Coordinates>(c => c.X==0 && c.Y==0), It.Is<char>(d => d==direction)))
             .Returns(new Coordinates(expectedX, expectedY));
         var rover = new Rover(_driverMock.Object)
         {
@@ -64,7 +65,7 @@ public class RoverTests
     {
         //Arrange
         _driverMock
-            .Setup(d => d.MoveBackward(It.IsAny<Coordinates>(), It.IsAny<char>()))
+            .Setup(d => d.MoveBackward(It.Is<Coordinates>(c => c.X == 0 && c.Y == 0), It.Is<char>(d => d == direction)))
             .Returns(new Coordinates(expectedX, expectedY));
         var rover = new Rover(_driverMock.Object)
         {
