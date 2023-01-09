@@ -24,6 +24,7 @@ public class Rover
                 case 'f': Position = _driver.MoveForward(Position,Direction); break;
                 case 'b': Position = _driver.MoveBackward(Position, Direction); break;
                 case 'l': Direction = _driver.TurnLeft(Direction); break;
+                case 'r': Direction = _driver.TurnRight(Direction); break;
                 default:
                     break;
             }
