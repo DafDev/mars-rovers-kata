@@ -80,4 +80,27 @@ public class RoverTests
         Assert.Equal(expectedX, rover.Position.X);
         Assert.Equal(expectedY, rover.Position.Y);
     }
+
+    [Theory]
+    [MemberData(nameof(RoverTestData.GetTurnLeftCommandData), MemberType = typeof(RoverTestData))]
+    public void TurnLefttMovesTheDirectionClockwise(char startingDirection, char expectedDirection)
+    {
+        //Arrange
+        _driverMock
+            .Setup(d => d.TurnLeft(startingDirection))
+            .Returns(expectedDirection);
+        var rover = new Rover(_driverMock.Object)
+        {
+            Direction = startingDirection
+        };
+        var commands = new[] { 'l' };
+
+        //Act
+        rover.GetCommands(commands);
+
+        //Assert
+        Assert.Equal(expectedDirection, rover.Direction);
+        Assert.Equal(0, rover.Position.X);
+        Assert.Equal(0, rover.Position.Y);
+    }
 }
