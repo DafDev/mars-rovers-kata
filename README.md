@@ -18,5 +18,9 @@ This is a kata to develop a mars rover application via TDD
 -   Be careful about edge cases and exceptions. We can not afford to lose a mars rover, just because the developers overlooked a null pointer.
 
 ## What was accomplished
-+ The starting point and directions were accomplished
-+ commands can be received and treated
++ The starting point and directions were accomplished.
++ Commands can be received and treated.
++ The fact that mars is a sphere has been taken into account.
+
+## What still needs to be done
++ Obstacle detection    
