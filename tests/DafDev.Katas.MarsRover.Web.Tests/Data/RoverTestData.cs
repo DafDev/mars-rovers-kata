@@ -35,5 +35,6 @@ public class RoverTestData
     {
         yield return new object[] { 'N', 'W' };
         yield return new object[] { 'W', 'S' };
+        yield return new object[] { 'S', 'E' };
     }
 }
