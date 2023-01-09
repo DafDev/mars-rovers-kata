@@ -22,7 +22,12 @@ public class Driver : IDriver
 
     public char TurnLeft(char startingDirection)
     {
-        return 'W';
+        if (startingDirection == 'N')
+            return 'W';
+        if (startingDirection == 'W')
+            return 'S';
+
+        return ' ';
     }
 
     public char TurnRight(char startingDirection) => startingDirection switch
