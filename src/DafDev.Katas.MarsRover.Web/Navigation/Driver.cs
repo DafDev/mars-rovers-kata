@@ -25,6 +25,7 @@ public class Driver : IDriver
         'N' => 'W',
         'W' => 'S',
         'S' => 'E',
+        'E' => 'N',
         _ => startingDirection
     };
 
