@@ -7,6 +7,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DafDev.Katas.MarsRover.Web"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DafDev.Katas.MarsRover.Web.Tests", "tests\DafDev.Katas.MarsRover.Web.Tests\DafDev.Katas.MarsRover.Web.Tests.csproj", "{483A894A-361A-4D23-8505-432029CAF54B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EC9AB711-7CAB-472C-8DBF-CA4670DE0199}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DafDev.Katas.MarsRover.Application", "src\DafDev.Katas.MarsRover.Application\DafDev.Katas.MarsRover.Application.csproj", "{23ABBB4B-1A71-46E2-9CBB-320B2BA2CF48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DafDev.Katas.MarsRover.InMemoryInfrastructure", "src\DafDev.Katas.MarsRover.InMemoryInfrastructure\DafDev.Katas.MarsRover.InMemoryInfrastructure.csproj", "{AC729260-B633-4B85-866D-BFAC5AD617BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CF8DD444-E81F-44A8-8B64-8BA419716A25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DafDev.Katas.MarsRover.Application.Tests", "tests\DafDev.Katas.MarsRover.Application.Tests\DafDev.Katas.MarsRover.Application.Tests.csproj", "{56DA5A4D-F568-4761-A1A8-A919C6ABDA13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DafDev.Katas.MarsRover.InMemoryInfrastructure.Tests", "tests\DafDev.Katas.MarsRover.InMemoryInfrastructure.Tests\DafDev.Katas.MarsRover.InMemoryInfrastructure.Tests.csproj", "{93CFE912-273E-4963-B395-E641C2588087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +33,33 @@ Global
 		{483A894A-361A-4D23-8505-432029CAF54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{483A894A-361A-4D23-8505-432029CAF54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{483A894A-361A-4D23-8505-432029CAF54B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23ABBB4B-1A71-46E2-9CBB-320B2BA2CF48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23ABBB4B-1A71-46E2-9CBB-320B2BA2CF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23ABBB4B-1A71-46E2-9CBB-320B2BA2CF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23ABBB4B-1A71-46E2-9CBB-320B2BA2CF48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC729260-B633-4B85-866D-BFAC5AD617BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC729260-B633-4B85-866D-BFAC5AD617BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC729260-B633-4B85-866D-BFAC5AD617BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC729260-B633-4B85-866D-BFAC5AD617BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56DA5A4D-F568-4761-A1A8-A919C6ABDA13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56DA5A4D-F568-4761-A1A8-A919C6ABDA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56DA5A4D-F568-4761-A1A8-A919C6ABDA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56DA5A4D-F568-4761-A1A8-A919C6ABDA13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93CFE912-273E-4963-B395-E641C2588087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93CFE912-273E-4963-B395-E641C2588087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93CFE912-273E-4963-B395-E641C2588087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93CFE912-273E-4963-B395-E641C2588087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D06A7CC8-7C49-4C47-A202-5568F4BC6305} = {EC9AB711-7CAB-472C-8DBF-CA4670DE0199}
+		{483A894A-361A-4D23-8505-432029CAF54B} = {CF8DD444-E81F-44A8-8B64-8BA419716A25}
+		{23ABBB4B-1A71-46E2-9CBB-320B2BA2CF48} = {EC9AB711-7CAB-472C-8DBF-CA4670DE0199}
+		{AC729260-B633-4B85-866D-BFAC5AD617BD} = {EC9AB711-7CAB-472C-8DBF-CA4670DE0199}
+		{56DA5A4D-F568-4761-A1A8-A919C6ABDA13} = {CF8DD444-E81F-44A8-8B64-8BA419716A25}
+		{93CFE912-273E-4963-B395-E641C2588087} = {CF8DD444-E81F-44A8-8B64-8BA419716A25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8C00185-F1A0-48DD-9BAE-667728D3F8F8}
