@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DafDev.Katas.MarsRover.Application\DafDev.Katas.MarsRover.Application.csproj" />
+    <ProjectReference Include="..\..\src\DafDev.Katas.MarsRover.InMemoryInfrastructure\DafDev.Katas.MarsRover.InMemoryInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>

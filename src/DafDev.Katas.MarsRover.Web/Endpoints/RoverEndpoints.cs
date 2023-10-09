@@ -14,33 +14,33 @@ public class RoverEndpoints : IEndpointDefinition
         app.MapDelete("/rovers/{id}", DecommissionRover);
     }
 
-    public IResult LandRoverOnMars(IRoverServices roverServices)
+    public async Task<IResult> LandRoverOnMars(IRoverServices roverServices)
     {
-        var rover = roverServices.LandRover();
+        var rover = await roverServices.LandRover();
         return Results.Ok(rover);
     }
 
-    public IResult GetAllRovers(IRoverServices roverServices)
+    public async Task<IResult> GetAllRovers(IRoverServices roverServices)
     {
-        var rovers = roverServices.GetAllRovers();
+        var rovers = await roverServices.GetAllRovers();
         return Results.Ok(rovers);
     }
 
-    public IResult GetRoverById(IRoverServices roverServices, Guid id)
+    public async Task<IResult> GetRoverById(IRoverServices roverServices, Guid id)
     {
-        var rover = roverServices.GetRoverById(id);
+        var rover = await roverServices.GetRoverById(id);
         return Results.Ok(rover);
     }
 
-    public IResult DriveRover(IRoverServices roverServices, Guid id, [FromQuery] string commands)
+    public async Task<IResult> DriveRover(IRoverServices roverServices, Guid id, [FromQuery] string commands)
     {
-        var rover = roverServices.DriveRover(roverServices.GetRoverById(id), commands);
+        var rover = await roverServices.DriveRover(await roverServices.GetRoverById(id), commands);
         return Results.Ok(rover);
     }
 
-    public IResult DecommissionRover(IRoverServices roverServices, Guid id)
+    public async Task<IResult> DecommissionRover(IRoverServices roverServices, Guid id)
     {
-        roverServices.DecommissionRover(id);
+        await roverServices.DecommissionRover(id);
         return Results.Ok($"rover with id: {id} sucessfully decommissioned");
     }
 }

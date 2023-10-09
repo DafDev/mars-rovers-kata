@@ -18,7 +18,7 @@ public class RoverServices : IRoverServices
     }
 
 
-    public Rover DriveRover(Rover rover, string commands)
+    public async Task<Rover> DriveRover(Rover rover, string commands)
     {
         var mappedCommands = _driverDirectionMapper.Map(commands).ToList();
 
@@ -34,14 +34,13 @@ public class RoverServices : IRoverServices
                     
             }
         }
-
-        return rover;
+        return await _roverRepository.Update(rover);
     }
 
-    public Rover GetRoverById(Guid id) => _roverRepository.Get(id);
+    public async Task<Rover> GetRoverById(Guid id) => await _roverRepository.Get(id);
 
-    public Rover LandRover(Rover? rover = null) => _roverRepository.Create(rover);
-    public void DecommissionRover(Guid id) => _roverRepository.Delete(id);
+    public async Task<Rover> LandRover(Rover? rover = null) => await _roverRepository.Create(rover);
+    public async Task DecommissionRover(Guid id) => await _roverRepository.Delete(id);
 
-    public IEnumerable<Rover> GetAllRovers() => _roverRepository.GetAll();
+    public async Task<IEnumerable<Rover>> GetAllRovers() => await _roverRepository.GetAll();
 }

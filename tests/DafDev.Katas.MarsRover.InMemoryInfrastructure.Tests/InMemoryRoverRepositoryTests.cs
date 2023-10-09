@@ -11,37 +11,45 @@ public class InMemoryRoverRepositoryTests
     public readonly InMemoryRoverRepository _sut = new();
 
     [Fact]
-    public void CreateShouldReturnGuid()
+    public async Task CreateShouldReturnGuid()
     {
         // Arrange
         var rover = new Rover();
 
         // Act
-        var result =_sut.Create(rover);
+        var result = await _sut.Create(rover);
+
+        // Assert
+        result.Should().Be(rover);
+    }
+    [Fact]
+    public async Task CreatefromNullRoverShouldReturnGuid()
+    {
+        // Arrange & Act
+        var result = await _sut.Create();
+
+        // Assert
+        result.Should().NotBeNull();
+    }
+    [Fact]
+    public async Task UpdateUnknownRoverShouldCreateIt()
+    {
+        // Arrange
+        var rover = new Rover();
+
+        // Act
+        var result = await _sut.Update(rover);
 
         // Assert
         result.Should().Be(rover);
     }
 
     [Fact]
-    public void UpdateUnknownRoverShouldCreateIt()
+    public async Task UpdateKnownRoverShouldupdateIt()
     {
         // Arrange
         var rover = new Rover();
-
-        // Act
-        var result = _sut.Update(rover);
-
-        // Assert
-        result.Should().Be(rover);
-    }
-
-    [Fact]
-    public void UpdateKnownRoverShouldupdateIt()
-    {
-        // Arrange
-        var rover = new Rover();
-        var created = _sut.Create(rover);
+        var created = await _sut.Create(rover);
         created.Should().Be(rover);
         var modified = new Rover
         {
@@ -51,21 +59,21 @@ public class InMemoryRoverRepositoryTests
         };
 
         // Act
-        var result = _sut.Update(modified);
+        var result = await _sut.Update(modified);
 
         // Assert
         result.Should().Be(modified);
     }
 
     [Fact]
-    public void GetAllShouldReturnAllRoversInMemory()
+    public async Task GetAllShouldReturnAllRoversInMemory()
     {
         // Arrange
         var rover = new Rover();
-        _sut.Create(rover);
+        await _sut.Create(rover);
 
         // Act
-        var result = _sut.GetAll();
+        var result = await _sut.GetAll();
 
         // Assert
         result.Should().BeEquivalentTo(new List<Rover> { rover });
@@ -73,43 +81,43 @@ public class InMemoryRoverRepositoryTests
 
 
     [Fact]
-    public void GetByIdShouldReturnAppropriateRoverInMemory()
+    public async Task GetByIdShouldReturnAppropriateRoverInMemory()
     {
         // Arrange
         var rover = new Rover();
-        _sut.Create(rover);
+        await _sut.Create(rover);
 
         // Act
-        var result = _sut.Get(rover.Id);
+        var result = await _sut.Get(rover.Id);
 
         // Assert
         result.Should().Be(rover);
     }
 
     [Fact]
-    public void DeleteShouldDeleteRover()
+    public async Task DeleteShouldDeleteRover()
     {
         // Arrange
         var rover = new Rover();
-        _sut.Create(rover);
-        var gottenRover = _sut.Get(rover.Id);
+        await _sut.Create(rover);
+        var gottenRover = await _sut.Get(rover.Id);
         gottenRover.Should().Be(rover);
 
         // Act
-        _sut.Delete(rover.Id);
+        await _sut.Delete(rover.Id);
 
         // Assert
         var result = () => _sut.Get(rover.Id);
-        result.Should().Throw<NonexistantRoverException>();
+        await result.Should().ThrowAsync<NonexistantRoverException>();
     }
 
     [Fact]
-    public void DeleteIfGuidUnknownShouldThrow()
+    public async Task DeleteIfGuidUnknownShouldThrow()
     {
         // Arrange & Act
         var action = () => _sut.Delete(new Guid());
 
         // Assert
-        action.Should().Throw<NonexistantRoverException>();
+        await action.Should().ThrowAsync<NonexistantRoverException>();
     }
 }
