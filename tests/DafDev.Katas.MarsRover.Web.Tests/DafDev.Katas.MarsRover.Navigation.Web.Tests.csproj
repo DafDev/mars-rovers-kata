@@ -22,12 +22,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\DafDev.Katas.MarsRover.Web\DafDev.Katas.MarsRover.Web.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Endpoints\" />
-  </ItemGroup>
-
 </Project>

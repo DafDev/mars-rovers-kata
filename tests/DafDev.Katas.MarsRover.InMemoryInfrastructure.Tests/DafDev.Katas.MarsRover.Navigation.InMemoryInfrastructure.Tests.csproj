@@ -27,7 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DafDev.Katas.MarsRover.InMemoryInfrastructure\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Navigation\DafDev.Katas.MarsRover.Navigation.Domain\DafDev.Katas.MarsRover.Navigation.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Navigation\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>
