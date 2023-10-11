@@ -1,9 +1,9 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Repository;
-using DafDev.Katas.MarsRover.InMemoryInfrastructure.Repository;
+using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
+using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace DafDev.Katas.MarsRover.InMemoryInfrastructure.DependencyInjection;
+namespace DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.DependencyInjection;
 
 [ExcludeFromCodeCoverage]
 public static class ServicesExtensions

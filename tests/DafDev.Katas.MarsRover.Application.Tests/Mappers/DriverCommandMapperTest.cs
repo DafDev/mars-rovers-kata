@@ -1,8 +1,8 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Exceptions;
-using DafDev.Katas.MarsRover.Application.Navigation.Mappers;
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
+using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
+using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 
-namespace DafDev.Katas.MarsRover.Application.Tests.Mappers;
+namespace DafDev.Katas.MarsRover.Navigation.Application.Tests.Mappers;
 public class DriverCommandMapperTest
 {
     private readonly DriverCommandMapper _sut = new();

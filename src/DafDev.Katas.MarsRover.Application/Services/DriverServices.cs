@@ -1,17 +1,18 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Exceptions;
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
+using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
+using DafDev.Katas.MarsRover.Navigation.Domain.Services;
 
-namespace DafDev.Katas.MarsRover.Application.Navigation.Services;
+namespace DafDev.Katas.MarsRover.Navigation.Application.Services;
 
 public class DriverServices : IDriverServices
 {
     public Coordinates MoveBackward(Coordinates coordinates, CardinalDirections direction) => direction switch
     {
         CardinalDirections.North when coordinates.Y == int.MaxValue => new(coordinates.X, int.MinValue),
-        CardinalDirections.North => new(coordinates.X, coordinates.Y-1),
-        CardinalDirections.East => new(coordinates.X-1, coordinates.Y),
+        CardinalDirections.North => new(coordinates.X, coordinates.Y - 1),
+        CardinalDirections.East => new(coordinates.X - 1, coordinates.Y),
         CardinalDirections.South when coordinates.Y == int.MinValue => new(coordinates.X, int.MaxValue),
-        CardinalDirections.South => new(coordinates.X, coordinates.Y+1),
+        CardinalDirections.South => new(coordinates.X, coordinates.Y + 1),
         CardinalDirections.West => new(coordinates.X + 1, coordinates.Y),
         _ => throw new UnknownCardinalDirectionException($"Cardinal direction {direction} does not exist"),
     };

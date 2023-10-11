@@ -1,8 +1,8 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
-using DafDev.Katas.MarsRover.Application.Navigation.Repository;
-using DafDev.Katas.MarsRover.InMemoryInfrastructure.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
+using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
+using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
 
-namespace DafDev.Katas.MarsRover.InMemoryInfrastructure.Repository;
+namespace DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Repository;
 public class InMemoryRoverRepository : IRoverRepository
 {
     private readonly Dictionary<Guid, Rover> _rovers = new();

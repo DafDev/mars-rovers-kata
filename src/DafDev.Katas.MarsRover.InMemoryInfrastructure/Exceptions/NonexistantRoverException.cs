@@ -1,4 +1,4 @@
-namespace DafDev.Katas.MarsRover.InMemoryInfrastructure.Exceptions;
+namespace DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
 [Serializable]
 public class NonexistantRoverException : Exception
 {

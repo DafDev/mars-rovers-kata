@@ -1,4 +1,4 @@
-namespace DafDev.Katas.MarsRover.Application.Navigation.Exceptions;
+namespace DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
 [Serializable]
 public class UnknownDriverCommandException : Exception
 {

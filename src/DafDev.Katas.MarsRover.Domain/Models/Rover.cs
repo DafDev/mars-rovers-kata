@@ -1,4 +1,4 @@
-namespace DafDev.Katas.MarsRover.Application.Navigation.Models;
+namespace DafDev.Katas.MarsRover.Navigation.Domain.Models;
 
 public class Rover
 {

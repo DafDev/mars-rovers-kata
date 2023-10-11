@@ -1,6 +1,6 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 
-namespace DafDev.Katas.MarsRover.Application.Navigation.Services;
+namespace DafDev.Katas.MarsRover.Navigation.Domain.Services;
 
 public interface IDriverServices
 {
