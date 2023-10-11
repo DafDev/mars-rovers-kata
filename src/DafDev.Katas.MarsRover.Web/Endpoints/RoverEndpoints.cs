@@ -1,4 +1,4 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Services;
+using DafDev.Katas.MarsRover.Navigation.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DafDev.Katas.MarsRover.Web.Endpoints;
@@ -34,7 +34,7 @@ public class RoverEndpoints : IEndpointDefinition
 
     public async Task<IResult> DriveRover(IRoverServices roverServices, Guid id, [FromQuery] string commands)
     {
-        var rover = await roverServices.DriveRover(await roverServices.GetRoverById(id), commands);
+        var rover = await roverServices.DriveRover((await roverServices.GetRoverById(id)).ToDomain(), commands);
         return Results.Ok(rover);
     }
 

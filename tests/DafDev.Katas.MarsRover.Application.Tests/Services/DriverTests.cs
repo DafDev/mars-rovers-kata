@@ -1,9 +1,9 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Exceptions;
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
-using DafDev.Katas.MarsRover.Application.Navigation.Services;
-using DafDev.Katas.MarsRover.Application.Tests.Data;
+using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
+using DafDev.Katas.MarsRover.Navigation.Application.Services;
+using DafDev.Katas.MarsRover.Navigation.Application.Tests.Data;
 
-namespace DafDev.Katas.MarsRover.Application.Tests.Navigation.Services;
+namespace DafDev.Katas.MarsRover.Navigation.Application.Tests.Services;
 public class DriverTests
 {
     private readonly DriverServices _sut = new();

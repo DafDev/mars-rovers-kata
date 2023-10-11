@@ -1,7 +1,7 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Exceptions;
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
+using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 
-namespace DafDev.Katas.MarsRover.Application.Navigation.Mappers;
+namespace DafDev.Katas.MarsRover.Navigation.Application.Mappers;
 
 public class DriverCommandMapper : IDriverCommandMapper
 {

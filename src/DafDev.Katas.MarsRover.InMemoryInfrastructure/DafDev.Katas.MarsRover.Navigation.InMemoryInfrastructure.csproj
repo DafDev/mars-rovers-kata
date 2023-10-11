@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DafDev.Katas.MarsRover.Application\DafDev.Katas.MarsRover.Application.csproj" />
+    <ProjectReference Include="..\DafDev.Katas.MarsRover.Application\DafDev.Katas.MarsRover.Navigation.Application.csproj" />
   </ItemGroup>
 
 </Project>

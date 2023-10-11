@@ -1,13 +1,15 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Mappers;
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
-using DafDev.Katas.MarsRover.Application.Navigation.Repository;
-using DafDev.Katas.MarsRover.Application.Tests.Data;
-using DafDev.Katas.MarsRover.Application.Navigation.Services;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
+using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
+using DafDev.Katas.MarsRover.Navigation.Application.Tests.Data;
 using Moq;
-using DafDev.Katas.MarsRover.Application.Navigation.Exceptions;
-using DafDev.Katas.MarsRover.InMemoryInfrastructure.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Application.Services;
+using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
+using DafDev.Katas.MarsRover.Navigation.Domain.Services;
+using DafDev.Katas.MarsRover.Navigation.Application.Dtos;
 
-namespace DafDev.Katas.MarsRover.Application.Tests.Navigation.Services;
+namespace DafDev.Katas.MarsRover.Navigation.Application.Tests.Services;
 
 public class RoverTests
 {
@@ -15,8 +17,9 @@ public class RoverTests
     private readonly Mock<IDriverServices> _driver = new();
     private readonly Mock<IDriverCommandMapper> _mapper = new();
     private readonly Mock<IRoverRepository> _repository = new();
+    private readonly Mock<IRoverToRoverDtoMapper> _roverToDtoMapper = new();
 
-    public RoverTests() => _sut = new(_driver.Object, _mapper.Object, _repository.Object);
+    public RoverTests() => _sut = new(_driver.Object, _mapper.Object, _repository.Object, _roverToDtoMapper.Object);
 
 
 
@@ -38,19 +41,21 @@ public class RoverTests
             Direction = direction
         };
 
-        var expectedRover = new Rover()
+        var updatedRover = new Rover()
         {
             Position = expectedCoordinates,
             Direction = direction,
             Id = rover.Id
         };
+        var expectedRover = new RoverDto()
+        {
+            Direction = (CardinalDirectionsDto)updatedRover.Direction,
+            Position = new CoordinatesDto(updatedRover.Position.X, updatedRover.Position.Y),
+            Id = updatedRover.Id
+        };
 
-        _repository
-            .Setup(repo => repo.Get(It.IsAny<Guid>()))
-            .ReturnsAsync(rover);
-        _repository
-            .Setup(repo => repo.Update(It.IsAny<Rover>()))
-            .ReturnsAsync(expectedRover);
+        SetupRepository(rover, updatedRover);
+        SetupRoverToDtoMapper(updatedRover, expectedRover);
 
         _mapper
             .Setup(mapper => mapper.Map(It.IsAny<string>()))
@@ -62,6 +67,8 @@ public class RoverTests
         //Assert
         result.Should().Be(expectedRover);
     }
+
+
 
     [Theory]
     [MemberData(nameof(RoverTestData.GetTurnCommandData), MemberType = typeof(RoverTestData))]
@@ -80,20 +87,21 @@ public class RoverTests
             Position = startingCoordinates,
             Direction = direction
         };
-        var expectedRover = new Rover()
+        var updatedRover = new Rover()
         {
             Position = startingCoordinates,
             Direction = expectedDirection,
             Id = rover.Id
         };
+        var expectedRover = new RoverDto()
+        {
+            Direction = (CardinalDirectionsDto)updatedRover.Direction,
+            Position = new CoordinatesDto(updatedRover.Position.X, updatedRover.Position.Y),
+            Id = updatedRover.Id
+        };
 
-        _repository
-            .Setup(repo => repo.Get(It.IsAny<Guid>()))
-            .ReturnsAsync(rover);
-
-        _repository
-            .Setup(repo => repo.Update(It.IsAny<Rover>()))
-            .ReturnsAsync(expectedRover);
+        SetupRepository(rover, updatedRover);
+        SetupRoverToDtoMapper(updatedRover, expectedRover);
 
         _mapper
             .Setup(mapper => mapper.Map(It.IsAny<string>()))
@@ -126,15 +134,23 @@ public class RoverTests
     {
         // Arrange
         var rover = new Rover();
+        var expectedRover = new RoverDto()
+        {
+            Direction = (CardinalDirectionsDto)rover.Direction,
+            Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
+            Id = rover.Id
+        };
+
         _repository
             .Setup(repo => repo.Create(rover))
             .ReturnsAsync(rover);
+        SetupRoverToDtoMapper(rover, expectedRover);
 
         // Act
         var result = await _sut.LandRover(rover);
 
         // Assert
-        result.Should().Be(rover);
+        result.Should().Be(expectedRover);
     }
 
     [Fact]
@@ -142,15 +158,23 @@ public class RoverTests
     {
         // Arrange
         var rover = new Rover();
+        var expectedRover = new RoverDto()
+        {
+            Direction = (CardinalDirectionsDto) rover.Direction,
+            Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
+            Id = rover.Id
+        };
+
         _repository
             .Setup(repo => repo.Get(rover.Id))
             .ReturnsAsync(rover);
+        SetupRoverToDtoMapper(rover, expectedRover);
 
         // Act
         var result = await _sut.GetRoverById(rover.Id);
 
         // Assert
-        result.Should().Be(rover);
+        result.Should().Be(expectedRover);
     }
 
     [Fact]
@@ -158,17 +182,29 @@ public class RoverTests
     {
         // Arrange
         var rover = new Rover();
-        var rover2 = new Rover();
-        var rovers = new List<Rover> { rover, rover2 };
+        var rovers = new List<Rover> { rover };
+        var expectedRovers = new List<RoverDto>
+        {
+            new()
+            {
+                Direction = (CardinalDirectionsDto) rover.Direction,
+                Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
+                Id = rover.Id
+            }
+        };
+
         _repository
             .Setup(repo => repo.GetAll())
             .ReturnsAsync(rovers);
+        _roverToDtoMapper
+            .Setup(mapper => mapper.Map(It.IsAny<List<Rover>>()))
+            .Returns(expectedRovers);
 
         // Act
         var result = await _sut.GetAllRovers();
 
         // Assert
-        result.Should().BeEquivalentTo(rovers);
+        result.Should().BeEquivalentTo(expectedRovers);
     }
 
     [Fact]
@@ -176,10 +212,18 @@ public class RoverTests
     {
         // Arrange
         var rover = new Rover();
+        var roverDto = new RoverDto()
+        {
+            Direction = (CardinalDirectionsDto)rover.Direction,
+            Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
+            Id = rover.Id
+        };
+
         _repository
             .SetupSequence(repo => repo.Get(rover.Id))
             .ReturnsAsync(rover)
             .ThrowsAsync(new NonexistantRoverException("no"));
+        SetupRoverToDtoMapper(rover, roverDto);
 
         // Act
         var roverToDelete = await _sut.GetRoverById(rover.Id);
@@ -229,5 +273,28 @@ public class RoverTests
                 break;
         }
 
+    }
+
+    private void SetupRepository(Rover rover, Rover updatedRover)
+    {
+        _repository
+            .Setup(repo => repo.Get(It.IsAny<Guid>()))
+            .ReturnsAsync(rover);
+        _repository
+            .Setup(repo => repo.Update(It.Is<Rover>(rover
+                => rover.Id == updatedRover.Id
+                    && rover.Position == updatedRover.Position
+                    && rover.Direction == updatedRover.Direction)))
+            .ReturnsAsync(updatedRover);
+    }
+
+    private void SetupRoverToDtoMapper(Rover roverToMap, RoverDto mappedRover)
+    {
+        _roverToDtoMapper
+            .Setup(mapper => mapper.Map(It.Is<Rover>(rover
+                => rover.Id == roverToMap.Id
+                && rover.Position == roverToMap.Position
+                && rover.Direction == roverToMap.Direction)))
+            .Returns(mappedRover);
     }
 }

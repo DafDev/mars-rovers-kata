@@ -1,10 +1,10 @@
-using DafDev.Katas.MarsRover.Application.Navigation.Models;
-using DafDev.Katas.MarsRover.InMemoryInfrastructure.Repository;
-using DafDev.Katas.MarsRover.InMemoryInfrastructure.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Models;
+using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Repository;
+using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
 using Xunit;
 using FluentAssertions;
 
-namespace DafDev.Katas.MarsRover.InMemoryInfrastructure.Tests;
+namespace DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Tests;
 
 public class InMemoryRoverRepositoryTests
 {
