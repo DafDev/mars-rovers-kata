@@ -1,14 +1,13 @@
-using DafDev.Katas.MarsRover.Navigation.Domain.Models;
-using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
-using DafDev.Katas.MarsRover.Navigation.Application.Tests.Data;
-using Moq;
-using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
-using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
-using DafDev.Katas.MarsRover.Navigation.Application.Services;
-using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
-using DafDev.Katas.MarsRover.Navigation.Domain.Services;
 using DafDev.Katas.MarsRover.Navigation.Application.Dtos;
+using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
+using DafDev.Katas.MarsRover.Navigation.Application.Services;
+using DafDev.Katas.MarsRover.Navigation.Application.Tests.Data;
+using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
+using DafDev.Katas.MarsRover.Navigation.Domain.Services;
+using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
 using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace DafDev.Katas.MarsRover.Navigation.Application.Tests.Services;
 
