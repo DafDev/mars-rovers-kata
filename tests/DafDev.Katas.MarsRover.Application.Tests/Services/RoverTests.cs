@@ -8,6 +8,7 @@ using DafDev.Katas.MarsRover.Navigation.Application.Services;
 using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
 using DafDev.Katas.MarsRover.Navigation.Domain.Services;
 using DafDev.Katas.MarsRover.Navigation.Application.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace DafDev.Katas.MarsRover.Navigation.Application.Tests.Services;
 
@@ -18,8 +19,15 @@ public class RoverTests
     private readonly Mock<IDriverCommandMapper> _mapper = new();
     private readonly Mock<IRoverRepository> _repository = new();
     private readonly Mock<IRoverToRoverDtoMapper> _roverToDtoMapper = new();
+    private readonly Mock<ILogger<RoverServices>> _logger = new();
 
-    public RoverTests() => _sut = new(_driver.Object, _mapper.Object, _repository.Object, _roverToDtoMapper.Object);
+    public RoverTests()
+        => _sut = new(
+            _driver.Object,
+            _mapper.Object,
+            _repository.Object,
+            _roverToDtoMapper.Object,
+            _logger.Object);
 
 
 
@@ -127,6 +135,13 @@ public class RoverTests
 
         // Assert
         await action.Should().ThrowAsync<UnknownDriverCommandException>();
+        _logger.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                It.Is<EventId>(eventId => eventId == 0),
+                It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "unknown 5 driver command" && @type.Name == "FormattedLogValues"),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
     }
 
     [Fact]
