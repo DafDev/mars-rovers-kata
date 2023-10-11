@@ -1,6 +1,5 @@
 using DafDev.Katas.MarsRover.Navigation.Application.Dtos;
 using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
-using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 
 namespace DafDev.Katas.MarsRover.Navigation.Application.Tests.Mappers;
 public class RoverToRoverDtoMapperTests

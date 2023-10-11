@@ -3,12 +3,14 @@ using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Repository;
 using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
 using Xunit;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Tests;
 
 public class InMemoryRoverRepositoryTests
 {
-    public readonly InMemoryRoverRepository _sut = new();
+    public readonly InMemoryRoverRepository _sut = new(Substitute.For<ILogger<InMemoryRoverRepository>>());
 
     [Fact]
     public async Task CreateShouldReturnGuid()

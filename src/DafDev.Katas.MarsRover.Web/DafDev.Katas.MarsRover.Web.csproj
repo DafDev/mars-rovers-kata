@@ -13,9 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-      <ProjectReference Include="..\DafDev.Katas.MarsRover.Application\DafDev.Katas.MarsRover.Navigation.Application.csproj" />
-      <ProjectReference Include="..\DafDev.Katas.MarsRover.Domain\DafDev.Katas.MarsRover.Navigation.Domain.csproj" />
-    <ProjectReference Include="..\DafDev.Katas.MarsRover.InMemoryInfrastructure\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.csproj" />
+    <ProjectReference Include="..\Navigation\DafDev.Katas.MarsRover.Navigation.Application\DafDev.Katas.MarsRover.Navigation.Application.csproj" />
+    <ProjectReference Include="..\Navigation\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>

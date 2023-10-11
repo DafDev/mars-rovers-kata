@@ -4,6 +4,7 @@ using DafDev.Katas.MarsRover.Navigation.Application.Mappers;
 using DafDev.Katas.MarsRover.Navigation.Domain.Services;
 using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 using DafDev.Katas.MarsRover.Navigation.Application.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace DafDev.Katas.MarsRover.Navigation.Application.Services;
 public class RoverServices : IRoverServices
@@ -12,17 +13,20 @@ public class RoverServices : IRoverServices
     private readonly IDriverCommandMapper _driverDirectionMapper;
     private readonly IRoverRepository _roverRepository;
     private readonly IRoverToRoverDtoMapper _roverToRoverDtoMapper;
+    private readonly ILogger<RoverServices> _logger;
 
     public RoverServices(
         IDriverServices driver,
         IDriverCommandMapper driverDirectionMapper,
         IRoverRepository roverRepository,
-        IRoverToRoverDtoMapper roverToRoverDtoMapper)
+        IRoverToRoverDtoMapper roverToRoverDtoMapper,
+        ILogger<RoverServices> logger)
     {
         _driver = driver;
         _driverDirectionMapper = driverDirectionMapper;
         _roverRepository = roverRepository;
         _roverToRoverDtoMapper = roverToRoverDtoMapper;
+        _logger = logger;
     }
 
 
@@ -38,7 +42,9 @@ public class RoverServices : IRoverServices
                 case DriverCommands.Backward: rover.Position = _driver.MoveBackward(rover.Position, rover.Direction); break;
                 case DriverCommands.Left: rover.Direction = _driver.TurnLeft(rover.Direction); break;
                 case DriverCommands.Right: rover.Direction = _driver.TurnRight(rover.Direction); break;
-                default: throw new UnknownDriverCommandException($"unknown {mappedCommand} driver command");
+                default:
+                    _logger.LogError("unknown {mappedCommand} driver command", mappedCommand);
+                    throw new UnknownDriverCommandException($"unknown {mappedCommand} driver command");
 
             }
         }
