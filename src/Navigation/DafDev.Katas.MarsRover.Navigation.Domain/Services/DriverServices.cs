@@ -1,8 +1,7 @@
-using DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+using DafDev.Katas.MarsRover.Navigation.Domain.Exceptions;
 using DafDev.Katas.MarsRover.Navigation.Domain.Models;
-using DafDev.Katas.MarsRover.Navigation.Domain.Services;
 
-namespace DafDev.Katas.MarsRover.Navigation.Application.Services;
+namespace DafDev.Katas.MarsRover.Navigation.Domain.Services;
 
 public class DriverServices : IDriverServices
 {

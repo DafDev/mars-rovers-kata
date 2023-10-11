@@ -1,4 +1,4 @@
-namespace DafDev.Katas.MarsRover.Navigation.Application.Exceptions;
+namespace DafDev.Katas.MarsRover.Navigation.Domain.Exceptions;
 
 [Serializable]
 public class UnknownCardinalDirectionException : Exception

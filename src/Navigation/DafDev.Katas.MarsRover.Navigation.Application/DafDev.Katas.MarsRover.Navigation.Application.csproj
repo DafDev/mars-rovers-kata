@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DafDev.Katas.MarsRover.Domain\DafDev.Katas.MarsRover.Navigation.Domain.csproj" />
+    <ProjectReference Include="..\DafDev.Katas.MarsRover.Navigation.Domain\DafDev.Katas.MarsRover.Navigation.Domain.csproj" />
   </ItemGroup>
 
 </Project>
