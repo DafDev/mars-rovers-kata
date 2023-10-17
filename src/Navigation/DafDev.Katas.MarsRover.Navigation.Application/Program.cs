@@ -1,10 +1,4 @@
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
-using ILoggerFactory loggerFactory =
-    LoggerFactory.Create(builder =>
-        builder.AddSimpleConsole(options =>
-        {
-            options.IncludeScopes = true;
-            options.SingleLine = true;
-            options.TimestampFormat = "HH:mm:ss ";
-        }));
+using IHost host = Host.CreateApplicationBuilder(args).Build();
+await host.RunAsync();
