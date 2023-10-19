@@ -52,13 +52,13 @@ public class RoverTests
         {
             Position = expectedCoordinates,
             Direction = direction,
-            Id = rover.Id
+            RoverId = rover.RoverId
         };
         var expectedRover = new RoverDto()
         {
             Direction = (CardinalDirectionsDto)updatedRover.Direction,
             Position = new CoordinatesDto(updatedRover.Position.X, updatedRover.Position.Y),
-            Id = updatedRover.Id
+            RoverId = updatedRover.RoverId
         };
 
         SetupRepository(rover, updatedRover);
@@ -98,13 +98,13 @@ public class RoverTests
         {
             Position = startingCoordinates,
             Direction = expectedDirection,
-            Id = rover.Id
+            RoverId = rover.RoverId
         };
         var expectedRover = new RoverDto()
         {
             Direction = (CardinalDirectionsDto)updatedRover.Direction,
             Position = new CoordinatesDto(updatedRover.Position.X, updatedRover.Position.Y),
-            Id = updatedRover.Id
+            RoverId = updatedRover.RoverId
         };
 
         SetupRepository(rover, updatedRover);
@@ -152,7 +152,7 @@ public class RoverTests
         {
             Direction = (CardinalDirectionsDto)rover.Direction,
             Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
-            Id = rover.Id
+            RoverId = rover.RoverId
         };
 
         _repository
@@ -176,16 +176,16 @@ public class RoverTests
         {
             Direction = (CardinalDirectionsDto) rover.Direction,
             Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
-            Id = rover.Id
+            RoverId = rover.RoverId
         };
 
         _repository
-            .Setup(repo => repo.Get(rover.Id))
+            .Setup(repo => repo.Get(rover.RoverId))
             .ReturnsAsync(rover);
         SetupRoverToDtoMapper(rover, expectedRover);
 
         // Act
-        var result = await _sut.GetRoverById(rover.Id);
+        var result = await _sut.GetRoverById(rover.RoverId);
 
         // Assert
         result.Should().Be(expectedRover);
@@ -203,7 +203,7 @@ public class RoverTests
             {
                 Direction = (CardinalDirectionsDto) rover.Direction,
                 Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
-                Id = rover.Id
+                RoverId = rover.RoverId
             }
         };
 
@@ -230,20 +230,20 @@ public class RoverTests
         {
             Direction = (CardinalDirectionsDto)rover.Direction,
             Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
-            Id = rover.Id
+            RoverId = rover.RoverId
         };
 
         _repository
-            .SetupSequence(repo => repo.Get(rover.Id))
+            .SetupSequence(repo => repo.Get(rover.RoverId))
             .ReturnsAsync(rover)
             .ThrowsAsync(new NonexistantRoverException("no"));
         SetupRoverToDtoMapper(rover, roverDto);
 
         // Act
-        var roverToDelete = await _sut.GetRoverById(rover.Id);
-        await _sut.DecommissionRover(roverToDelete.Id);
+        var roverToDelete = await _sut.GetRoverById(rover.RoverId);
+        await _sut.DecommissionRover(roverToDelete.RoverId);
 
-        var result = () => _sut.GetRoverById(rover.Id);
+        var result = () => _sut.GetRoverById(rover.RoverId);
 
         // Assert
         await result.Should().ThrowAsync<NonexistantRoverException>();
@@ -296,7 +296,7 @@ public class RoverTests
             .ReturnsAsync(rover);
         _repository
             .Setup(repo => repo.Update(It.Is<Rover>(rover
-                => rover.Id == updatedRover.Id
+                => rover.RoverId == updatedRover.RoverId
                     && rover.Position == updatedRover.Position
                     && rover.Direction == updatedRover.Direction)))
             .ReturnsAsync(updatedRover);
@@ -306,7 +306,7 @@ public class RoverTests
     {
         _roverToDtoMapper
             .Setup(mapper => mapper.Map(It.Is<Rover>(rover
-                => rover.Id == roverToMap.Id
+                => rover.RoverId == roverToMap.RoverId
                 && rover.Position == roverToMap.Position
                 && rover.Direction == roverToMap.Direction)))
             .Returns(mappedRover);

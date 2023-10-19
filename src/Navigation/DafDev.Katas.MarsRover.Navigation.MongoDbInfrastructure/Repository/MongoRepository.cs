@@ -30,7 +30,7 @@ public class MongoRepository : IRoverRepository
     {
         rover ??= new Rover();
         //await _rovers.InsertOneAsync(rover);
-        _rovers.Add(rover.Id, rover);
+        _rovers.Add(rover.RoverId, rover);
         return await Task.FromResult(rover);
     }
 
@@ -49,10 +49,10 @@ public class MongoRepository : IRoverRepository
 
     public async Task<Rover> Update(Rover rover)
     {
-        if(!_rovers.ContainsKey(rover.Id))
+        if(!_rovers.ContainsKey(rover.RoverId))
             return await Create(rover);
 
-        _rovers[rover.Id] = rover;
+        _rovers[rover.RoverId] = rover;
         return rover;
     }
 

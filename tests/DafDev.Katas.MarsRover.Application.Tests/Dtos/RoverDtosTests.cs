@@ -11,13 +11,13 @@ public class RoverDtosTests
         {
             Position = new CoordinatesDto(1, 1),
             Direction = CardinalDirectionsDto.North,
-            Id = new Guid()
+            RoverId = new Guid()
         };
         var expected = new Rover()
         {
             Position = new Coordinates(1, 1),
             Direction = CardinalDirections.North,
-            Id = roverDto.Id
+            RoverId = roverDto.RoverId
         };
 
 
