@@ -1,21 +1,25 @@
 using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.DependencyInjection;
+using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Settings;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-const string connectionUri = "mongodb+srv://afahd:yiuipRkKHsVjplQ7@cluster0.bztwrqo.mongodb.net/?retryWrites=true&w=majority";
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
-builder.Configuration.AddConfiguration(builder.Environment);
+builder.Configuration.AddConfiguration();
 
-builder.Services.AddServices(builder.Configuration);
+builder.Services
+    .AddConfiguration(builder.Configuration)
+    .AddServices();
+var mongoSettings = new MongoSettings();
+builder.Configuration.GetSection(nameof(MongoSettings)).Bind(mongoSettings);
 
 using IHost host = builder.Build();
 
 // Application code should start here.
-
-var settings = MongoClientSettings.FromConnectionString(connectionUri);
+var settings = MongoClientSettings.FromConnectionString(mongoSettings?.ConnectionString);
 
 // Set the ServerApi field of the settings object to Stable API version 1
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
@@ -26,8 +30,12 @@ var client = new MongoClient(settings);
 // Send a ping to confirm a successful connection
 try
 {
-    var result = client.GetDatabase("mars").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
-    Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
+    var databases = client.ListDatabases().ToList() ;
+    var collection = client.GetDatabase("sample_mflix").GetCollection<BsonDocument>("movies");
+    var filter = Builders<BsonDocument>.Filter.Eq("title", "Back to the Future");
+    var document = collection.Find(filter).First();
+    databases.ForEach(Console.WriteLine);
+    Console.WriteLine(document);
 }
 catch (Exception ex)
 {

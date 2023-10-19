@@ -1,3 +1,5 @@
+using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
+using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Repository;
 using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,16 +11,21 @@ namespace DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.DependencyInje
 [ExcludeFromCodeCoverage]
 public static class ServicesExtensions
 {
-    public static void AddServices(this IServiceCollection services, IConfigurationRoot configurationRoot)
+    public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfigurationRoot configurationRoot)
     {
-        services.Configure<MongoSettings>(configurationRoot.GetSection(nameof(MongoSettings)));
+        services.Configure<MongoSettings>(options => configurationRoot.GetSection(nameof(MongoSettings)).Bind(options));
+        return services;
+    }
+    public static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IRoverRepository, MongoRepository>();
+        return services;
     }
 
-    public static void AddConfiguration(this IConfigurationBuilder configuration, IHostEnvironment environment)
+    public static void AddConfiguration<T>(this T configuration) where T: IConfigurationRoot,IConfigurationBuilder
     {
         configuration.Sources.Clear();
-        configuration
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true);
+        configuration.AddUserSecrets<Program>();
+        configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
     }
 }
