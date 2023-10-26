@@ -295,7 +295,7 @@ public class RoverTests
             .Setup(repo => repo.Get(It.IsAny<Guid>()))
             .ReturnsAsync(rover);
         _repository
-            .Setup(repo => repo.Update(It.Is<Rover>(rover
+            .Setup(repo => repo.UpdateOrCreate(It.Is<Rover>(rover
                 => rover.RoverId == updatedRover.RoverId
                     && rover.Position == updatedRover.Position
                     && rover.Direction == updatedRover.Direction)))

@@ -55,13 +55,24 @@ public class MongoRepository : IRoverRepository
         return allRovers;
     }
 
-    public async Task<Rover> Update(Rover rover)
+    public async Task<Rover> UpdateOrCreate(Rover rover)
     {
-        //if(!_rovers.ContainsKey(rover.RoverId))
-        //    return await Create(rover);
+        var update = Builders<RoverEntity>
+            .Update
+            .Set(entity => entity.Position, _mapper.Map<CoordinatesEntity>(rover.Position))
+            .Set(entity => entity.Direction, _mapper.Map<CardinalDirectionsEntity>(rover.Direction));
 
-        //_rovers[rover.RoverId] = rover;
-        return rover;
+        var options = new FindOneAndUpdateOptions<RoverEntity>()
+        {
+            IsUpsert = true,
+            ReturnDocument = ReturnDocument.After
+        };
+
+        var updatedRover = await _rovers.FindOneAndUpdateAsync<RoverEntity>(roverEntity => roverEntity.RoverId == rover.RoverId,
+            update,
+            options);
+
+        return _mapper.Map<Rover>(updatedRover);
     }
 
     private Rover LogAndThrowException(string message)

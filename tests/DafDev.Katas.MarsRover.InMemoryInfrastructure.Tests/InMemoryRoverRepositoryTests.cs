@@ -40,7 +40,7 @@ public class InMemoryRoverRepositoryTests
         var rover = new Rover();
 
         // Act
-        var result = await _sut.Update(rover);
+        var result = await _sut.UpdateOrCreate(rover);
 
         // Assert
         result.Should().Be(rover);
@@ -61,7 +61,7 @@ public class InMemoryRoverRepositoryTests
         };
 
         // Act
-        var result = await _sut.Update(modified);
+        var result = await _sut.UpdateOrCreate(modified);
 
         // Assert
         result.Should().Be(modified);

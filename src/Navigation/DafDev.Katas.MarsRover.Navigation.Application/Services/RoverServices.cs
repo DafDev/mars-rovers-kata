@@ -49,7 +49,7 @@ public class RoverServices : IRoverServices
             }
         }
 
-        var updatedRover = await _roverRepository.Update(rover);
+        var updatedRover = await _roverRepository.UpdateOrCreate(rover);
         return _roverToRoverDtoMapper.Map(updatedRover);
     }
 

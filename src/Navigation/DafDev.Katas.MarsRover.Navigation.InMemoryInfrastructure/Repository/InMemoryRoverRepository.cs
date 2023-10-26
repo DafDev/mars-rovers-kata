@@ -34,7 +34,7 @@ public class InMemoryRoverRepository : IRoverRepository
 
     public async Task<IEnumerable<Rover>> GetAll() => await Task.FromResult(_rovers.Values.AsEnumerable());
 
-    public async Task<Rover> Update(Rover rover)
+    public async Task<Rover> UpdateOrCreate(Rover rover)
     {
         if(!_rovers.ContainsKey(rover.RoverId))
             return await Create(rover);
