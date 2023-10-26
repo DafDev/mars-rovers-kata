@@ -4,6 +4,7 @@ using DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Exceptions;
 using Microsoft.Extensions.Logging;
 
 namespace DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.Repository;
+
 public class InMemoryRoverRepository : IRoverRepository
 {
     private readonly Dictionary<Guid, Rover> _rovers = new();
@@ -25,6 +26,12 @@ public class InMemoryRoverRepository : IRoverRepository
     {
         if (!await Task.FromResult(_rovers.Remove(id)))
             LogAndThrowException($"rover w/ id: {id} does not exist");
+    }
+
+    public async Task DeleteAll()
+    {
+        _rovers.Clear();
+        await Task.CompletedTask;
     }
 
     public async Task<Rover> Get(Guid id)

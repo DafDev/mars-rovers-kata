@@ -5,7 +5,8 @@ public interface IRoverRepository
 {
     Task<Rover> Create(Rover? rover = null);
     Task<Rover> Get(Guid id);
+    Task<IEnumerable<Rover>> GetAll();
     Task<Rover> UpdateOrCreate(Rover rover);
     Task Delete(Guid id);
-    Task<IEnumerable<Rover>> GetAll();
+    Task DeleteAll();
 }

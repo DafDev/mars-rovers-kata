@@ -44,6 +44,13 @@ public class MongoRepository : IRoverRepository
             LogAndThrowException($"rover w/ roverId: {deletResult} does not exist");
     }
 
+    public async Task DeleteAll()
+    {
+        var deletResult = await _rovers.DeleteManyAsync(FilterDefinition<RoverEntity>.Empty);
+        if (!deletResult.IsAcknowledged)
+            LogAndThrowException($"rover w/ roverId: {deletResult} does not exist");
+    }
+
     public async Task<Rover> Get(Guid id)
         => _mapper.Map<Rover>(await _rovers.FindAsync(rover => rover.RoverId == id).Result.FirstOrDefaultAsync());
 

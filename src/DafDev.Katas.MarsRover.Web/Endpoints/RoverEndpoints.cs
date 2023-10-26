@@ -12,6 +12,7 @@ public class RoverEndpoints : IEndpointDefinition
         app.MapGet("/rovers/{id}", GetRoverById);
         app.MapPut("/rovers/drive/{id}", DriveRover);
         app.MapDelete("/rovers/{id}", DecommissionRover);
+        app.MapDelete("/rovers", DecommissionAllRovers);
     }
 
     public async Task<IResult> LandRoverOnMars(IRoverServices roverServices)
@@ -43,4 +44,11 @@ public class RoverEndpoints : IEndpointDefinition
         await roverServices.DecommissionRover(id);
         return Results.Ok($"rover with id: {id} sucessfully decommissioned");
     }
+
+    public async Task<IResult> DecommissionAllRovers(IRoverServices roverServices)
+    {
+        await roverServices.DecommissionAllRovers();
+        return Results.Ok($"every rover were sucessfully decommissioned");
+    }
+
 }

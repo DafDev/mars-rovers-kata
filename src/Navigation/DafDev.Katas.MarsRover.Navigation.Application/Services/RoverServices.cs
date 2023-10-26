@@ -57,6 +57,7 @@ public class RoverServices : IRoverServices
 
     public async Task<RoverDto> LandRover(Rover? rover = null) => _roverToRoverDtoMapper.Map(await _roverRepository.Create(rover));
     public async Task DecommissionRover(Guid id) => await _roverRepository.Delete(id);
+    public async Task DecommissionAllRovers() => await _roverRepository.DeleteAll();
 
     public async Task<IEnumerable<RoverDto>> GetAllRovers() => _roverToRoverDtoMapper.Map(await _roverRepository.GetAll());
 }
