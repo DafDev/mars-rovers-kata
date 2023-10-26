@@ -12,7 +12,7 @@ builder.Configuration.AddConfiguration();
 
 builder.Services
     .AddConfiguration(builder.Configuration)
-    .AddServices();
+    .AddInfraDependencies();
 var mongoSettings = new MongoSettings();
 builder.Configuration.GetSection(nameof(MongoSettings)).Bind(mongoSettings);
 

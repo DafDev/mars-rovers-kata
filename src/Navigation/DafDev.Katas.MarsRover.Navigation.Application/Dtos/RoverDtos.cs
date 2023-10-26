@@ -1,6 +1,7 @@
 using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 
 namespace DafDev.Katas.MarsRover.Navigation.Application.Dtos;
+// ToDo turn this class into a record
 public class RoverDto
 {
     public CoordinatesDto Position { get; set; }

@@ -3,7 +3,6 @@ using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Repository;
 using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.DependencyInjection;
@@ -16,9 +15,10 @@ public static class ServicesExtensions
         services.Configure<MongoSettings>(options => configurationRoot.GetSection(nameof(MongoSettings)).Bind(options));
         return services;
     }
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddInfraDependencies(this IServiceCollection services)
     {
-        services.AddSingleton<IRoverRepository, MongoRepository>();
+        services.AddScoped<ICustomMongoClient, CustomMongoClient>();
+        services.AddScoped<IRoverRepository, MongoRepository>();
         return services;
     }
 

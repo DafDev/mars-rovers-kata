@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Navigation\DafDev.Katas.MarsRover.Navigation.Application\DafDev.Katas.MarsRover.Navigation.Application.csproj" />
     <ProjectReference Include="..\Navigation\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure\DafDev.Katas.MarsRover.Navigation.InMemoryInfrastructure.csproj" />
+    <ProjectReference Include="..\Navigation\DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure\DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>
