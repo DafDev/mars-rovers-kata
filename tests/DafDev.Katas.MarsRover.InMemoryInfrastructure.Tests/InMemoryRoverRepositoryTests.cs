@@ -40,7 +40,7 @@ public class InMemoryRoverRepositoryTests
         var rover = new Rover();
 
         // Act
-        var result = await _sut.Update(rover);
+        var result = await _sut.UpdateOrCreate(rover);
 
         // Assert
         result.Should().Be(rover);
@@ -55,13 +55,13 @@ public class InMemoryRoverRepositoryTests
         created.Should().Be(rover);
         var modified = new Rover
         {
-            Id = created.Id,
+            RoverId = created.RoverId,
             Direction = CardinalDirections.West,
             Position = new Coordinates(-26, 87),
         };
 
         // Act
-        var result = await _sut.Update(modified);
+        var result = await _sut.UpdateOrCreate(modified);
 
         // Assert
         result.Should().Be(modified);
@@ -90,7 +90,7 @@ public class InMemoryRoverRepositoryTests
         await _sut.Create(rover);
 
         // Act
-        var result = await _sut.Get(rover.Id);
+        var result = await _sut.Get(rover.RoverId);
 
         // Assert
         result.Should().Be(rover);
@@ -102,14 +102,14 @@ public class InMemoryRoverRepositoryTests
         // Arrange
         var rover = new Rover();
         await _sut.Create(rover);
-        var gottenRover = await _sut.Get(rover.Id);
+        var gottenRover = await _sut.Get(rover.RoverId);
         gottenRover.Should().Be(rover);
 
         // Act
-        await _sut.Delete(rover.Id);
+        await _sut.Delete(rover.RoverId);
 
         // Assert
-        var result = () => _sut.Get(rover.Id);
+        var result = () => _sut.Get(rover.RoverId);
         await result.Should().ThrowAsync<NonexistantRoverException>();
     }
 

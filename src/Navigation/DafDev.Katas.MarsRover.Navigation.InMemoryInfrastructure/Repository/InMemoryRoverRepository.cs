@@ -17,7 +17,7 @@ public class InMemoryRoverRepository : IRoverRepository
     public async Task<Rover> Create(Rover? rover = null)
     {
         rover ??= new Rover();
-        _rovers.Add(rover.Id, rover);
+        _rovers.Add(rover.RoverId, rover);
         return await Task.FromResult(rover);
     }
 
@@ -34,12 +34,12 @@ public class InMemoryRoverRepository : IRoverRepository
 
     public async Task<IEnumerable<Rover>> GetAll() => await Task.FromResult(_rovers.Values.AsEnumerable());
 
-    public async Task<Rover> Update(Rover rover)
+    public async Task<Rover> UpdateOrCreate(Rover rover)
     {
-        if(!_rovers.ContainsKey(rover.Id))
+        if(!_rovers.ContainsKey(rover.RoverId))
             return await Create(rover);
 
-        _rovers[rover.Id] = rover;
+        _rovers[rover.RoverId] = rover;
         return rover;
     }
 

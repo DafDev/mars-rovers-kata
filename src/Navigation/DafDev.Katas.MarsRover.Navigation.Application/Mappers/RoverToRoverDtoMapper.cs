@@ -7,7 +7,7 @@ public class RoverToRoverDtoMapper : IRoverToRoverDtoMapper
     public RoverDto Map(Rover rover)
         => new()
         {
-            Id = rover.Id,
+            RoverId = rover.RoverId,
             Position = new CoordinatesDto(rover.Position.X, rover.Position.Y),
             Direction = (CardinalDirectionsDto)rover.Direction
         };

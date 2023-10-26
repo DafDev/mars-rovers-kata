@@ -12,14 +12,14 @@ public class RoverToRoverDtoMapperTests
         {
             Position = new CoordinatesDto(1, 1),
             Direction = CardinalDirectionsDto.North,
-            Id = new Guid()
+            RoverId = new Guid()
         };
         var expected = new List<RoverDto> { roverDto };
         var rover = new Rover()
         {
             Position = new Coordinates(1, 1),
             Direction = CardinalDirections.North,
-            Id = roverDto.Id
+            RoverId = roverDto.RoverId
         };
         var roversToMap = new List<Rover> { rover };
         var sut = new RoverToRoverDtoMapper();
@@ -39,13 +39,13 @@ public class RoverToRoverDtoMapperTests
         {
             Position = new Coordinates(1, 1),
             Direction = CardinalDirections.North,
-            Id = new Guid(),
+            RoverId = new Guid(),
         };
         var expected = new RoverDto()
         {
             Position = new CoordinatesDto(1, 1),
             Direction = CardinalDirectionsDto.North,
-            Id = rover.Id
+            RoverId = rover.RoverId
         };
         
         var sut = new RoverToRoverDtoMapper();
