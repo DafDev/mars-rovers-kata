@@ -28,4 +28,10 @@ public static class ServicesExtensions
         configuration.AddUserSecrets<Program>();
         configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
     }
+
+    public static IServiceCollection AddInfraToDomainMapping(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(MongoRepository));
+        return services;
+    }
 }

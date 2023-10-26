@@ -9,6 +9,7 @@ builder.Configuration.AddConfiguration();
 // add services 
 builder.Services
     .AddConfiguration(builder.Configuration)
+    .AddInfraToDomainMapping()
     .AddInfraDependencies()
     .AddDependencies()
     .AddSwaggerServices()
