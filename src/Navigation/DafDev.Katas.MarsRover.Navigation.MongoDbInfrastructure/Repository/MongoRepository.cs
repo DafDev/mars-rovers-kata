@@ -1,13 +1,12 @@
 using AutoMapper;
 using DafDev.Katas.MarsRover.Navigation.Domain.Models;
 using DafDev.Katas.MarsRover.Navigation.Domain.Repository;
+using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Entities;
 using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Exceptions;
 using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Settings;
-using DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Entities;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
-using System.Linq;
 
 namespace DafDev.Katas.MarsRover.Navigation.MongoDbInfrastructure.Repository;
 public class MongoRepository : IRoverRepository
@@ -38,11 +37,11 @@ public class MongoRepository : IRoverRepository
         return rover;
     }
 
-    public async Task Delete(Guid id)
+    public async Task Delete(Guid roverId)
     {
-        //var result =
-        //if (!await Task.FromResult(_rovers.Remove(id)))
-            //LogAndThrowException($"rover w/ id: {id} does not exist");
+        var deletResult = await _rovers.DeleteOneAsync(entity => entity.RoverId == roverId);
+        if (!deletResult.IsAcknowledged)
+            LogAndThrowException($"rover w/ roverId: {deletResult} does not exist");
     }
 
     public async Task<Rover> Get(Guid id)
