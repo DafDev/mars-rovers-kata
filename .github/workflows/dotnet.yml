@@ -10,10 +10,6 @@ jobs:
 
   build:
 
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-
     runs-on: ubuntu-latest
 
     env:
@@ -33,8 +29,8 @@ jobs:
       
       # Build
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --no-restore
       
       # Run Tests
       - name: Execute unit tests
-        run: dotnet test --no-restore
+        run: dotnet test --no-build
